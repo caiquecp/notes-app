@@ -1,11 +1,10 @@
 const fs = require('fs');
 const os = require('os');
+const _ = require('lodash');
 
 var addNote = function (title, description) {
-    const userInfo = os.userInfo();
-
-    var content = `${description}${os.EOL}Note created by ${userInfo.username}.`;
-    var file = `${title}.txt`;
+    var file = `note-${_.random(0, 999999)}.md`;
+    var content = `# ${title}${os.EOL}${description}`;
 
     fs.appendFile(file, content, (err) => {
         if (err) {
