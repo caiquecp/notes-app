@@ -43,12 +43,12 @@ var remove = function (title) {
     console.log('Removing note ' + title);
 }
 
-var writeToJSON = function (notes) {
+function writeToJSON (notes) {
     const notesString = JSON.stringify(notes);
     fs.writeFileSync(file, notesString);
 }
 
-var readJSON = function () {
+function readJSON () {
     try {
         const notesString = fs.readFileSync(file, encode);
         return JSON.parse(notesString);

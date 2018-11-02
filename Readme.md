@@ -5,6 +5,6 @@
 Used libraries and modules:
 - fs: to work with file system
 - os: to get info about the system/OS
-- lodash: utility set of tools to work with arrays, numbers, strings, objects and etc.
+- lodash: set of tools to work with arrays, numbers, strings, objects and etc.
 - nodemon: CLI utility to detect changes in code and restart the app
 - yargs: tool to parse/manipulate arguments in CLI
