@@ -4,9 +4,10 @@ const notes = require('./notes.js');
 const yargs = require('yargs');
 
 const argv = yargs.argv;
-console.debug(argv);
+//console.debug(argv);
 
 var command = argv._[0];
+//console.log(command);
 
 if (command == 'add') {
     notes.add(argv.title, argv.description);
