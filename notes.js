@@ -1,16 +1,34 @@
-const fs = require('fs');
-const os = require('os');
 const _ = require('lodash');
 
-var addNote = function (title, description) {
-    var file = `note-${_.random(0, 999999)}.md`;
-    var content = `# ${title}${os.EOL}${description}`;
+var notes = [{title: 'Abc', description: 'A-b-c...'}];
 
-    fs.appendFile(file, content, (err) => {
-        if (err) {
-            throw err;
-        }
+var add = function (title, description) {
+    console.log('Adding note', title, description);
+    notes.push({
+        title,
+        description
     });
 }
 
-module.exports.addNote = addNote;
+var getAll = function () {
+    console.log('Reading all notes');
+    for (var i = 0; i < notes.length; i++) {
+        var note = notes[i]
+        console.log('Note ' + (i + 1), note.title, note.description);
+    }
+}
+
+var get = function (title) {
+    console.log('Reading note ' + title);
+}
+
+var remove = function (title) {
+    console.log('Removing note ' + title);
+}
+
+module.exports = {
+    add,
+    getAll,
+    get,
+    remove
+}

@@ -1,4 +1,21 @@
-const notes = require('./notes.js');
+'use strict'
 
-notes.addNote('Take a shower', 'I need to take a shower soon.');
-notes.addNote('Take a shower v2', 'I need to take a shower soon.');
+const notes = require('./notes.js');
+const yargs = require('yargs');
+
+const argv = yargs.argv;
+console.debug(argv);
+
+var command = argv._[0];
+
+if (command == 'add') {
+    notes.add(argv.title, argv.description);
+} else if (command == 'list') {
+    notes.getAll();
+} else if (command == 'remove') {
+    notes.remove(argv.title);
+} else if (command == 'read') {
+    notes.get(argv.title);
+} else {
+    console.log('Command not recognized');
+}
