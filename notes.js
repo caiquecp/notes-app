@@ -2,61 +2,61 @@
 
 const _ = require('lodash');
 const fs = require('fs');
+const os = require('os');
 
 const file = 'notes.json';
 const encode = 'utf8';
 
 var add = function (title, description) {
-    var note = {
-        title,
-        description
-    };
+    const notes = fetchNotes();
 
-    var notes = readJSON();
-
-    var duplicatedNotes = notes.filter((n) => n.title == title); 
+    const duplicatedNotes = notes.filter((n) => n.title == title); 
     if (duplicatedNotes.length > 0) {
         throw new Error('There\'s a note with the same title');
     }
 
+    const note = {
+        title,
+        description
+    };
+
     notes.push(note);
-    writeToJSON(notes);
+    saveNotes(notes);
 }
 
 var getAll = function () {
-    const notes = readJSON();
-    for (var i = 0; i < notes.length; i++) {
-        let note = notes[i]
-        console.log('Note ' + (i + 1), note.title, note.description);
-    }
+    return fetchNotes();
 }
 
 var get = function (title) {
-    const notes = readJSON();
-    const note = notes.filter((n) => n.title == title)[0];
-    if (note !== undefined) {
-        console.log('Note ', note.title, note.description);
-    }
+    const notes = fetchNotes();
+    return notes.filter((n) => n.title == title)[0];
 }
 
 var remove = function (title) {
-    console.log('Removing note ' + title);
+    const notes = fetchNotes();
+    const filteredNotes = notes.filter((n) => n.title != title);
+    const hasNotesChanged = notes.length != filteredNotes.length;
+    
+    if (hasNotesChanged) {
+        saveNotes(filteredNotes);
+    }
+
+    return hasNotesChanged;
 }
 
-function writeToJSON (notes) {
+var saveNotes = function (notes) {
     const notesString = JSON.stringify(notes);
     fs.writeFileSync(file, notesString);
 }
 
-function readJSON () {
+var fetchNotes = function () {
     try {
         const notesString = fs.readFileSync(file, encode);
         return JSON.parse(notesString);
     } catch (err) {
         if (err.code == "ENOENT") { // file doesn't exists
-            var notes = [];
-            writeToJSON(notes);
-            return notes;
+            return [];
         } else {
             throw err;
         }
