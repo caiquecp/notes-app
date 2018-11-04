@@ -2,10 +2,7 @@
 
 const _ = require('lodash');
 const fs = require('fs');
-const os = require('os');
-
-const file = 'notes.json';
-const encode = 'utf8';
+const config = require('./config.js');
 
 var add = function (title, description) {
     const notes = fetchNotes();
@@ -47,12 +44,12 @@ var remove = function (title) {
 
 var saveNotes = function (notes) {
     const notesString = JSON.stringify(notes);
-    fs.writeFileSync(file, notesString);
+    fs.writeFileSync(config.notesFile, notesString);
 }
 
 var fetchNotes = function () {
     try {
-        const notesString = fs.readFileSync(file, encode);
+        const notesString = fs.readFileSync(config.notesFile, config.encoding);
         return JSON.parse(notesString);
     } catch (err) {
         if (err.code == "ENOENT") { // file doesn't exists
