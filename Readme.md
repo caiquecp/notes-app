@@ -3,13 +3,13 @@
 
 It's a very simple CLI notes app that stores data in a local JSON file.
 
-Available features:
+## Available features:
 - add a note
 - remove a note
 - list all notes
 - read a specficic note
 
-Used libraries and modules:
+## Used libraries and modules:
 - fs: to work with file system
 - os: to get info about the system/OS
 - lodash: set of tools to work with arrays, numbers, strings, objects and etc.
