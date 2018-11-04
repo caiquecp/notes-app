@@ -1,7 +1,7 @@
 
 # Notes app
 
-It's a very simple CLI note app that stores data in a local JSON file.
+It's a very simple CLI notes app that stores data in a local JSON file.
 
 Available features:
 - add a note
